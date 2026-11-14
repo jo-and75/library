@@ -16,13 +16,22 @@ function Book(title, author, pages, read){
     this.info = function(){ 
         return title + " by " + author +  ", " + pages + " pages is " + read;
     }
-}// constructor  
+}// constructor   
+
+Book.prototype.toggleRead = function(idx){ 
+    if (this.read == "TRUE"){ 
+        this.read = "FALSE";
+    } else if (this.read == "FALSE"){
+        this.read = "TRUE"; 
+    }
+}
 
 function addBookToLib(title, author, pages, read){ 
     const bookTemplate = new Book(title, author, pages, read); 
     myLib.push(bookTemplate); 
     displayBooks();
-}// add books 
+}// add books  
+
 
 function displayBooks(){ 
     tbl.innerHTML = ""; //clear table
@@ -38,15 +47,24 @@ function displayBooks(){
         col3.textContent = myLib[i].pages; 
 
         const col4 = document.createElement("td");   
+        const btn = document.createElement("button");  
+        
     
         if(myLib[i].read == "TRUE"){ 
-            col4.textContent = "READ";
+            btn.textContent = "READ";
         } else{ 
-            col4.textContent = "NOT READ";
-        }
+            btn.textContent = "NOT READ";
+        } 
+
+        col4.append(btn);
         
         const remove = document.createElement("button"); 
         remove.textContent = "REMOVE";   
+
+        btn.addEventListener('click', function(){ 
+            myLib[i].toggleRead(i); 
+            displayBooks();
+        })
 
         remove.addEventListener('click', () => removeBook(i));
         row.append(col1);
