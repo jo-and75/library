@@ -1,9 +1,9 @@
 const myLib = [];
 const tbl = document.getElementsByTagName("table")[0]; 
 const form = document.getElementById("form");
-const dialog= document.getElementById("dialog");
+const dialog = document.getElementById("dialog");
 
-function Book(title, author, pages, status){   
+function Book(title, author, pages, read){   
     if (!new.target){ 
         throw Error ("You should use 'new' when invoking this function ");
     }
@@ -11,15 +11,15 @@ function Book(title, author, pages, status){
     this.title = title; 
     this.author = author;
     this.pages = pages;  
-    this.status = status;
+    this.read = read;
    
     this.info = function(){ 
-        return title + " by " + author +  ", " + pages + " pages is " + status;
+        return title + " by " + author +  ", " + pages + " pages is " + read;
     }
 }// constructor  
 
-function addBookToLib(title, author, pages, status){ 
-    const bookTemplate = new Book(title, author, pages, status); 
+function addBookToLib(title, author, pages, read){ 
+    const bookTemplate = new Book(title, author, pages, read); 
     myLib.push(bookTemplate); 
     displayBooks();
 }// add books 
@@ -37,9 +37,14 @@ function displayBooks(){
         const col3 = document.createElement("td"); 
         col3.textContent = myLib[i].pages; 
 
-        const col4 = document.createElement("td"); 
-        col4.textContent = myLib[i].status; 
-
+        const col4 = document.createElement("td");   
+    
+        if(myLib[i].read == "TRUE"){ 
+            col4.textContent = "READ";
+        } else{ 
+            col4.textContent = "NOT READ";
+        }
+        
         const remove = document.createElement("button"); 
         remove.textContent = "REMOVE";   
 
@@ -59,17 +64,14 @@ form.addEventListener('submit', function(event){
         const author = document.getElementById("author"); 
         const title = document.getElementById("title"); 
         const pages = document.getElementById("pages"); 
-        const status = document.getElementById("status");   
-        const selIdx = status.selectedIndex;   
-        const statusVal = status.options[selIdx].value;  
-        alert(statusVal);
-
-
-        if(author.value == "" || title.value == "" || pages.value == ""){
+        const read = document.getElementById("read");    
+        const selIdx = read.selectedIndex;   
+        const readVal = read.options[selIdx].value;  
+        if(author.value == "" || title.value == "" ){
             alert("Please ensure all fields are filled in correctly"); 
             return;
         }
-        addBookToLib(title.value, author.value, pages.value,statusVal);
+        addBookToLib(title.value, author.value, pages.value,readVal);
         hideForm();
     }
 ) 
@@ -88,10 +90,10 @@ function removeBook(index){
 
 }
 
-addBookToLib("Animal Farm", "George Orwell", 300, "read"); 
-addBookToLib("Never Let Me Go", "Kazui Ishiguro", 400, "not read"); 
-addBookToLib("Persepolis", "Marjane Satrapi", 300, "read"); 
-addBookToLib("The Handmaids Tale", "Margaret Atwood", 350, "not read"); 
+addBookToLib("Animal Farm", "George Orwell", 300, "TRUE"); 
+addBookToLib("Never Let Me Go", "Kazui Ishiguro", 400, "FALSE"); 
+addBookToLib("Persepolis", "Marjane Satrapi", 300, "TRUE"); 
+addBookToLib("The Handmaids Tale", "Margaret Atwood", 350, "FALSE"); 
 // addBookToLib("Oliver Twist", "Charles Dickens", 450); 
 // addBookToLib("1984", "George Orwell", 500); 
 // addBookToLib("Darkness At Noon", "Arthur Koesteller", 800);  
