@@ -14,9 +14,7 @@
         </nav>
     </header> 
     <main>   
-        <form action="get">  
-            <label for
-        </form>
+       <button onclick="displayForm()"> Add new book</button>
         <section>  
             <table> 
                 <tr> 
@@ -26,7 +24,28 @@
                     <th>Status</th>
                 </tr> 
             </table>
-        </section> 
+        </section>  
+
+        <dialog id="dialog"> 
+            <form id="form"> 
+                <label for="title">TITLE:</label> 
+                <input type="text" name="title" id="title"> 
+
+                <label for="author">AUTHOR:</label> 
+                <input type="text" name="author" id="author"> 
+
+                <label for="pages">PAGES:</label> 
+                <input type="text" name="pages" id="pages"> 
+
+                <label for="status">STATUS:</label> 
+                <select id="status" name="status"> 
+                    <option value="read">READ</option> 
+                    <option value="not read">NOT READ</option>
+                </select> 
+
+                <button id="submit" name="submit" type="submit">SUBMIT</button>
+            </form> 
+        </dialog>
     </main> 
     <footer> 
     </footer> 
