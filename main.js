@@ -1,7 +1,9 @@
 const myLib = [];
-const tbl = document.getElementsByTagName("table")[0]; 
+const tbl = document.getElementsByTagName("table")[0];  
+const headers = document.getElementById("headers");
 const form = document.getElementById("form");
 const dialog = document.getElementById("dialog");
+
 
 function Book(title, author, pages, read){   
     if (!new.target){ 
@@ -34,7 +36,10 @@ function addBookToLib(title, author, pages, read){
 
 
 function displayBooks(){ 
-    tbl.innerHTML = ""; //clear table
+    tbl.innerHTML = ""; //clear table  
+
+    tbl.append(headers); 
+
     for (let i = 0; i < myLib.length; i++){   
         const row = document.createElement("tr");
         const col1 = document.createElement("td") ; 
@@ -51,15 +56,15 @@ function displayBooks(){
         
     
         if(myLib[i].read == "TRUE"){ 
-            btn.textContent = "READ";
+            btn.textContent = "Read";
         } else{ 
-            btn.textContent = "NOT READ";
+            btn.textContent = "Not Read";
         } 
 
         col4.append(btn);
         
         const remove = document.createElement("button"); 
-        remove.textContent = "REMOVE";   
+        remove.textContent = "Remove";   
 
         btn.addEventListener('click', function(){ 
             myLib[i].toggleRead(i); 
@@ -72,7 +77,7 @@ function displayBooks(){
         row.append(col3);
         row.append(col4); 
         row.append(remove);
-        tbl.append(row);      
+        tbl.append(row);     
     } 
 
 }// displays catalogue  
@@ -96,24 +101,21 @@ form.addEventListener('submit', function(event){
 
 function displayForm(){ 
     dialog.style.display = "grid";
-} 
+} //display form
 
 function hideForm(){ 
     dialog.style.display = "none";
-} 
+} // hide form
 
 function removeBook(index){   
     myLib.splice(index,1); 
     displayBooks();
 
-}
+} // remove book
 
 addBookToLib("Animal Farm", "George Orwell", 300, "TRUE"); 
 addBookToLib("Never Let Me Go", "Kazui Ishiguro", 400, "FALSE"); 
 addBookToLib("Persepolis", "Marjane Satrapi", 300, "TRUE"); 
 addBookToLib("The Handmaids Tale", "Margaret Atwood", 350, "FALSE"); 
-// addBookToLib("Oliver Twist", "Charles Dickens", 450); 
-// addBookToLib("1984", "George Orwell", 500); 
-// addBookToLib("Darkness At Noon", "Arthur Koesteller", 800);  
-
+  
 displayBooks()
